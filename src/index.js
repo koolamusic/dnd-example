@@ -34,34 +34,46 @@ class App extends React.Component {
       return;
     }
 
-    //declare column from state based on droppableId
-    const column = this.state.columns[source.droppableId]
-    console.log("THIS IS COLL", column)
-    // create new TasksId Array based on states column
-    const newTaskIds = Array.from(column.taskIds)
-    // remove our source index and insert our new destination 
-    // index using array splice append the new id in second statement
-    newTaskIds.splice(source.index, 1)
-    newTaskIds.splice(destination.index, 0, draggableId)
-    console.log("NEW TASK IDS", newTaskIds)
 
-    // declare a new column based on the new column array and mutate our new taskIds. object spread
-    const newColumn = {
-      ...column,
-      taskIds: newTaskIds
-    }
+    /// We now need to handle the case where the start and finish column contains the same or different properties
+    const start = this.state.columns[source.droppableId]
+    const finish = this.state.columns[destination.droppableId]
 
-    // crete a new state based on newly derived results
-    const newState = {
-      ...this.state,
-      columns: {
-        ...this.state.columns,
-        [newColumn.id]: newColumn
+    // We check a condition where the start and finish are the same, then we take no new action and manager order within that column
+    if (start === finish) {
+
+      //declare column from state based on droppableId
+      const column = this.state.columns[source.droppableId]
+      console.log("THIS IS COLL", column)
+      // create new TasksId Array based on states column
+      const newTaskIds = Array.from(column.taskIds)
+      // remove our source index and insert our new destination 
+      // index using array splice append the new id in second statement
+      newTaskIds.splice(source.index, 1)
+      newTaskIds.splice(destination.index, 0, draggableId)
+      console.log("NEW TASK IDS", newTaskIds)
+
+      // declare a new column based on the new column array and mutate our new taskIds. object spread
+      const newColumn = {
+        ...column,
+        taskIds: newTaskIds
       }
+
+      // crete a new state based on newly derived results
+      const newState = {
+        ...this.state,
+        columns: {
+          ...this.state.columns,
+          [newColumn.id]: newColumn
+        }
+      }
+      console.log("THIS IS NEW STATE", newState)
+      // call react setState with newState Object
+      this.setState(newState)
+
     }
-    console.log("THIS IS NEW STATE", newState)
-    // call react setState with newState Object
-    this.setState(newState)
+
+    // create variables start and finish column that we can reference in the state
 
   }
 
