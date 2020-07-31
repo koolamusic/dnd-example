@@ -1,9 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext } from 'react-beautiful-dnd'
+import styled from 'styled-components'
 import { initialData } from './initial-data'
 import Column from './column'
 import './index.css'
+
+
+const Container = styled.div`
+    /* border: 1px solid lightgray; */
+    /* border-radius: 2px; */
+    padding: 8px;
+    display: flex;
+    margin-bottom: 8px;
+    /* background-color: ${props => props.isDragging ? 'lightgreen' : 'white'} */
+`
 
 
 class App extends React.Component {
@@ -57,12 +68,15 @@ class App extends React.Component {
   render() {
     return (
       <DragDropContext onDragEnd={this.onDragEnd}>
-        {this.state.columnOrder.map(columnId => {
-          const column = this.state.columns[columnId];
-          const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
+        <Container>
 
-          return <Column key={column.id} column={column} tasks={tasks} />
-        })}
+          {this.state.columnOrder.map(columnId => {
+            const column = this.state.columns[columnId];
+            const tasks = column.taskIds.map(taskId => this.state.tasks[taskId])
+
+            return <Column key={column.id} column={column} tasks={tasks} />
+          })}
+        </Container>
       </DragDropContext>
     )
   }

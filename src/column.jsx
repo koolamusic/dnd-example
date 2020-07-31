@@ -7,7 +7,9 @@ import Task from './task'
 const Container = styled.div`
     margin: 8px;
     border: 1px solid #ddd;
-    border-radius: 2px
+    border-radius: 2px;
+    min-width: 230px;
+
 `
 
 const Title = styled.h3`
@@ -17,7 +19,9 @@ const Title = styled.h3`
 const TaskList = styled.div`
     padding: 8px;
     transition: cubic-bezier(0.075, 0.82, 0.165, 1) .2s;
-    background-color: ${props => props.isDraggingOver ? 'lightblue' : 'white'}
+    background-color: ${props => props.isDraggingOver ? 'lightblue' : 'white'};
+    flex-grow: 1;
+    min-height: 100px;
 
 `
 
