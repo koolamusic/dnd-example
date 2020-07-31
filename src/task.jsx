@@ -20,7 +20,7 @@ const Handle = styled.div`
     margin-right: 10px;
 `
 
-export default class Task extends React.Component {
+export default class Task extends React.PureComponent {
     render() {
         return (
             <Draggable draggableId={this.props.task.id} index={this.props.index}>

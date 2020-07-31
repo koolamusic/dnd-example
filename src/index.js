@@ -1,3 +1,8 @@
+/**=============== EGGHEAD TUTORIAL ===============
+ * https://egghead.io/lessons/react-conditionally-allow-movement-using-react-beautiful-dnd-draggable-and-droppable-props
+ * Performance :: https://egghead.io/lessons/react-optimize-performance-in-react-beautiful-dnd-with-shouldcomponentupdate-and-purecomponent
+ *=================================*/
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { DragDropContext } from 'react-beautiful-dnd'
