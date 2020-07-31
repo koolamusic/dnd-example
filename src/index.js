@@ -35,7 +35,7 @@ class App extends React.Component {
     }
 
 
-    /// We now need to handle the case where the start and finish column contains the same or different properties
+    // create variables start and finish column that we can reference in the state
     const start = this.state.columns[source.droppableId]
     const finish = this.state.columns[destination.droppableId]
 
@@ -44,9 +44,10 @@ class App extends React.Component {
 
       //declare column from state based on droppableId
       const column = this.state.columns[source.droppableId]
-      console.log("THIS IS COLL", column)
+
       // create new TasksId Array based on states column
       const newTaskIds = Array.from(column.taskIds)
+
       // remove our source index and insert our new destination 
       // index using array splice append the new id in second statement
       newTaskIds.splice(source.index, 1)
@@ -67,13 +68,52 @@ class App extends React.Component {
           [newColumn.id]: newColumn
         }
       }
-      console.log("THIS IS NEW STATE", newState)
       // call react setState with newState Object
       this.setState(newState)
-
     }
 
-    // create variables start and finish column that we can reference in the state
+    if (start !== finish) {
+
+
+      // We now need to handle the case where the start and finish column contains the different properties
+
+      const newStartArray = Array.from(start.taskIds)
+      newStartArray.splice(source.index, 1)
+
+
+      // declare newStartColumn
+      const newStartColumn = {
+        ...start,
+        taskIds: newStartArray
+      }
+
+
+      const newFinishArray = Array.from(finish.taskIds)
+      newFinishArray.splice(destination.index, 0, draggableId)
+
+
+      // declare newFinishColumn
+      const newFinishColumn = {
+        ...finish,
+        taskIds: newFinishArray
+      }
+
+      const finishState = {
+        ...this.state,
+        columns: {
+          ...this.state.columns,
+          [start.id]: newStartColumn,
+          [finish.id]: newFinishColumn
+        }
+      }
+      console.log("THIS IS THE IFNI", finishState)
+
+      // Update state with newStart and finish Column
+      this.setState(finishState)
+    }
+
+
+
 
   }
 
